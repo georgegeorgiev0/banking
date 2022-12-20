@@ -36,8 +36,6 @@ func Start() {
 
 	router := mux.NewRouter()
 
-	//wiring
-	//ch := CustomerHandlers{service.NewCustomerService(domain.NewCustomerRepositoryStub())}
 	dbClient := getDbClient()
 	customerRepositoryDb := domain.NewCustomerRepositoryDb(dbClient)
 	accountRepositoryDb := domain.NewAccountRepositoryDb(dbClient)
@@ -64,6 +62,7 @@ func Start() {
 
 	am := AuthMiddleware{domain.NewAuthRepository()}
 	router.Use(am.authorizationHandler())
+
 	// starting server
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")

@@ -24,14 +24,17 @@ func (s DefaultCustomerService) GetAllCustomer(status string) ([]dto.CustomerRes
 	} else {
 		status = ""
 	}
+
 	customers, err := s.repo.FindAll(status)
 	if err != nil {
 		return nil, err
 	}
+
 	response := make([]dto.CustomerResponse, 0)
 	for _, c := range customers {
 		response = append(response, c.ToDto())
 	}
+
 	return response, err
 }
 
